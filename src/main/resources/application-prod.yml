@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: ewosthupassobs
+    password: fd8afc59eb172971e0cc7f87dcb448037858f24918e0e4fb828a15c83d0c05f6
+    url: jdbc:postgresql://ec2-54-211-255-161.compute-1.amazonaws.com:5432/di0lmb5vresgq
+
+  sql:
+    init:
+      plataform: postgres
+  jpa:
+    hibernate:
+      ddl-auto: none
+      generate-ddl: true

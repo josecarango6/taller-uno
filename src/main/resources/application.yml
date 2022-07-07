@@ -2,7 +2,7 @@ spring:
   application:
     name: tallerUno
   profiles:
-    active: dev
+    active: prod
 server:
   servlet:
     context-path: /tallerUno/api/v1
