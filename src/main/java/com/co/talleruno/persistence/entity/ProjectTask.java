@@ -57,6 +57,7 @@ public class ProjectTask {
     @Column(name = "project_identifier")
     private String projectIdentifier;
 
+
     @ManyToOne()
     @JoinColumn(name = "backlog_id")
     private Backlog backlog;

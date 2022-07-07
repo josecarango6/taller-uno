@@ -41,6 +41,7 @@ public class Project {
     @Column(name = "end_date")
     private LocalDateTime endDate;
 
+
     @JoinColumn(name = "backlog")
     @OneToOne()
     private Backlog backlog;

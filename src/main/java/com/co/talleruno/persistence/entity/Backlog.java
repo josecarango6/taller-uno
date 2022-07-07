@@ -25,6 +25,7 @@ public class Backlog {
     @Column(name = "project_identifier")
     private String projectIdentifier;
 
+
     @JoinColumn(name = "project")
     @OneToOne()
     private Project project;
