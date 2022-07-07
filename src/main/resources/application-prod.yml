@@ -9,5 +9,5 @@ spring:
       plataform: postgres
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
       generate-ddl: true
