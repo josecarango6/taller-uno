@@ -43,9 +43,13 @@ public class ProjectTask {
     private ProjectStatus projectStatus;
 
     @Column(name = "priority")
+    @Min(value = 1, message = "La prioridad debe de ser mayor o igual a 1")
+    @Max(value = 5, message = "La prioridad debe de ser menor o igual a 5")
     private Integer priority;
 
     @Column(name = "hours")
+    @Min(value = 1, message = "Las horas deben de ser mayor o igual a 1")
+    @Max(value = 5, message = "Las horas debem de ser menor o igual a 8")
     private Double hours;
 
     @Column(name = "start_date")
@@ -54,7 +58,7 @@ public class ProjectTask {
     @Column(name = "end_date")
     private LocalDateTime endDate;
 
-    @Column(name = "project_identifier")
+    @Column(name = "project_identifier", updatable = false)
     private String projectIdentifier;
 
 
