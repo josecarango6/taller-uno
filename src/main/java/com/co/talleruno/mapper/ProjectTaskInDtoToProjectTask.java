@@ -16,7 +16,8 @@ public class ProjectTaskInDtoToProjectTask implements IMapper<ProjectTaskInDTO, 
         projectTask.setName(in.getName());
         projectTask.setSummary(in.getSummary());
         projectTask.setAcceptanceCriteria(in.getAcceptanceCriteria());
-        projectTask.setProjectStatus(ProjectStatus.NOT_STARED);
+        //projectTask.setProjectStatus(ProjectStatus.NOT_STARED);
+        projectTask.setProjectStatus(in.getProjectStatus());
         projectTask.setPriority(in.getPriority());
         projectTask.setHours(in.getHours());
         projectTask.setStartDate(LocalDateTime.now());

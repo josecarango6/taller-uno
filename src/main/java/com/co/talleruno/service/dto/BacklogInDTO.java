@@ -1,5 +1,6 @@
 package com.co.talleruno.service.dto;
 
+import com.co.talleruno.persistence.entity.Project;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

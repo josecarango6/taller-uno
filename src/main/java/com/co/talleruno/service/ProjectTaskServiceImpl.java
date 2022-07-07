@@ -1,5 +1,6 @@
 package com.co.talleruno.service;
 
+import com.co.talleruno.persistence.entity.ProjectStatus;
 import com.co.talleruno.persistence.entity.ProjectTask;
 import com.co.talleruno.persistence.repository.ProjectTaskRepository;
 import lombok.RequiredArgsConstructor;
@@ -34,18 +35,37 @@ public class ProjectTaskServiceImpl implements ProjectTaskService{
 
     public Boolean existsByProjectIdentifier(String projectIdentifier){ return projectTaskRepository.existsByProjectIdentifier(projectIdentifier); }
 
+    public boolean existsById(Long id){ return projectTaskRepository.existsById(id); }
+
     public Double getTotalHoursByProjectIdentifier(String projectIdentifier){
-
         LinkedList<Double> listHours = new LinkedList<>();
-
         List<ProjectTask> tasks = projectTaskRepository.findAllByProjectIdentifier(projectIdentifier);
-
         for( ProjectTask task:tasks){
-            listHours.push(task.getHours());
+            if(!(task.getProjectStatus().name().equals("DELETED"))) {
+                listHours.push(task.getHours());
+            }
         }
-
         return listHours.stream().reduce(0.0d, (a, b) -> a + b);
+    }
+    public Double getTotalHoursByProjectIdentifierAndStatus(String projectIdentifier, String projectStatus){
+        LinkedList<Double> listHours = new LinkedList<>();
+        List<ProjectTask> tasks = projectTaskRepository.findAllByProjectIdentifier(projectIdentifier);
+        for( ProjectTask task:tasks){
+            if(task.getProjectStatus().name().equals(projectStatus)) {
+                listHours.push(task.getHours());
+            }
+        }
+        return listHours.stream().reduce(0.0d, (a, b) -> a + b);
+    }
 
+
+    public ProjectTask logicDeleteByIdAndProjectIdentifier(Long id, String projectIdentifier){
+
+        ProjectTask projectTask = this.findById(id);
+        projectTask.setProjectStatus(ProjectStatus.DELETED);
+        projectTaskRepository.save(projectTask);
+
+        return projectTask;
     }
 
     @Override

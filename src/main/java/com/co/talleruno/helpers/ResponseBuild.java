@@ -31,6 +31,12 @@ public class ResponseBuild {
                 .code(NOT_FOUND.value()).build();
     }
 
+    public Response failedStatusNotFound() {
+        return Response.builder()
+                .data("Status "+NOT_FOUND.getReasonPhrase())
+                .code(NOT_FOUND.value()).build();
+    }
+
     public Response failed(Object data) {
         return Response.builder()
                 .data(data)

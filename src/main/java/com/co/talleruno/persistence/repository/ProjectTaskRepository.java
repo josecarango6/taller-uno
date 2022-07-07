@@ -11,8 +11,8 @@ import java.util.List;
 public interface ProjectTaskRepository extends JpaRepository<ProjectTask, Long> {
 
     List<ProjectTask> findAllByProjectIdentifier(String projectIdentifier);
-
     Boolean existsByProjectIdentifier(String projectIdentifier);
+    boolean existsById(Long id);
 
 
 }

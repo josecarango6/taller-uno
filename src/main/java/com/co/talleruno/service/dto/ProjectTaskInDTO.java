@@ -19,8 +19,10 @@ public class ProjectTaskInDTO {
     private String name;
     private String summary;
     private String acceptanceCriteria;
+    private ProjectStatus projectStatus;
     private Integer priority;
     private Double hours;
     private LocalDateTime endDate;
     private String projectIdentifier;
+
 }

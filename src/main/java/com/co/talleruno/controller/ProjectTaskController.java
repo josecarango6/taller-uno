@@ -6,6 +6,7 @@ import com.co.talleruno.helpers.Response;
 import com.co.talleruno.helpers.ResponseBuild;
 import com.co.talleruno.mapper.ProjectTaskInDtoToProjectTask;
 import com.co.talleruno.persistence.entity.Project;
+import com.co.talleruno.persistence.entity.ProjectStatus;
 import com.co.talleruno.persistence.entity.ProjectTask;
 import com.co.talleruno.service.ProjectService;
 import com.co.talleruno.service.ProjectTaskService;
@@ -20,12 +21,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/tasks/")
@@ -47,8 +43,6 @@ public class ProjectTaskController implements ProjectTaskDocs {
             return response.buildResponse(result, HttpStatus.BAD_REQUEST);
             //return build.failed(formatMessage(result));
         }
-
-    // Hola
 
         Optional<Project> project = projectService.findByProjectIdentifier(projectTask.getProjectIdentifier());
         if (!project.isPresent()){
@@ -86,27 +80,59 @@ public class ProjectTaskController implements ProjectTaskDocs {
     @GetMapping("/project/{projectIdentifier}")
     public Response findTasksByProjectIdentifier(
         @PathVariable("projectIdentifier") String projectIdentifier) {
-
         if (projectTaskService.existsByProjectIdentifier(projectIdentifier)) {
             return build.success(projectTaskService.findByProjectIdentifier(projectIdentifier));
         }
-
         return build.failedTaskNotFound();
     }
 
     @GetMapping("project/hours/{projectIdentifier}")
-    public Response getTotalHoursByProjectIdentifier(
-        @PathVariable("projectIdentifier") String projectIdentifier) {
-
+    public Response getTotalHoursByProjectIdentifier(@PathVariable("projectIdentifier") String projectIdentifier) {
         if (projectTaskService.existsByProjectIdentifier(projectIdentifier)) {
-
             return build.success(
                 projectTaskService.getTotalHoursByProjectIdentifier(projectIdentifier));
-
         }
-
         return build.failedTaskNotFound();
     }
+
+    @GetMapping("project/hours/{projectIdentifier}/{status}")
+    public Response getTotalHoursByProjectIdentifierAndStatus(@PathVariable("projectIdentifier") String projectIdentifier, @PathVariable("status") String projectStatus) {
+        if (projectTaskService.existsByProjectIdentifier(projectIdentifier)) {
+            Boolean statusFound = false;
+            for( ProjectStatus status: ProjectStatus.values()){
+                if(projectStatus.equals(status.name())){
+                    statusFound = true;
+                }
+            }
+            if(statusFound){
+                return build.success(projectTaskService.getTotalHoursByProjectIdentifierAndStatus(projectIdentifier, projectStatus));
+            }else{
+                return build.failedStatusNotFound();
+            }
+        }
+        return build.failedTaskNotFound();
+    }
+
+    @PatchMapping("{idTask}/{projectIdentifier}")
+    public Response logicDeleteByIdAndProjectIdentifier(@PathVariable("idTask") Long idTask, String projectIdentifier){
+        if(projectTaskService.existsById(idTask)){
+            if (projectTaskService.existsByProjectIdentifier(projectIdentifier)) {
+                return build.success(projectTaskService.logicDeleteByIdAndProjectIdentifier(idTask,projectIdentifier));
+            }else{
+                return build.failedTaskNotFound();
+            }
+        }else{
+            return build.failedTaskNotFound();
+        }
+
+
+
+
+
+
+    }
+
+
 
 
 
