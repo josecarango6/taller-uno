@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    username: ewosthupassobs
-    password: fd8afc59eb172971e0cc7f87dcb448037858f24918e0e4fb828a15c83d0c05f6
-    url: jdbc:postgresql://ec2-54-211-255-161.compute-1.amazonaws.com:5432/di0lmb5vresgq
+    username: xojyfspnlmjjqc
+    password: 87124d084921ad01c160c3e2a3ab2108164b7a0ec913e09e0427ae20087ad083
+    url: jdbc:postgresql://ec2-54-159-22-90.compute-1.amazonaws.com:5432/d8ldm7d1b0tjq
 
   sql:
     init:
