@@ -70,9 +70,8 @@ public class ProjectTaskServiceImpl implements ProjectTaskService{
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public ProjectTask save(ProjectTask projectTask) {
+    public void save(ProjectTask projectTask) {
         projectTaskRepository.save(projectTask);
-        return projectTask;
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.co.talleruno.controller;
 
 import com.co.talleruno.controller.docs.ProjectTaskDocs;
-import com.co.talleruno.helpers.ControllerResponse;
 import com.co.talleruno.helpers.Response;
 import com.co.talleruno.helpers.ResponseBuild;
 import com.co.talleruno.mapper.ProjectTaskInDtoToProjectTask;
@@ -18,8 +17,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,26 +30,23 @@ public class ProjectTaskController implements ProjectTaskDocs {
     private final ResponseBuild build;
 
     private final ProjectService projectService;
-    private final ControllerResponse response;
+    //private final ControllerResponse response;
 
 
     @Override
     @PostMapping
-    public ResponseEntity save(@Valid @RequestBody ProjectTaskInDTO projectTask, BindingResult result) {
+    public Response save(@Valid @RequestBody ProjectTaskInDTO projectTask, BindingResult result) {
         if (result.hasErrors()) {
-            return response.buildResponse(result, HttpStatus.BAD_REQUEST);
-            //return build.failed(formatMessage(result));
+            return build.failed(formatMessage(result));
         }
 
         Optional<Project> project = projectService.findByProjectIdentifier(projectTask.getProjectIdentifier());
         if (!project.isPresent()){
-            String message = "Project identifier does not exist";
-            return  response.buildResponse(message, HttpStatus.BAD_REQUEST);
+            return build.projectIdentifierNotExist(formatMessage(result));
         }
 
-        ProjectTask something = projectTaskService.save(
-                mapper.map(projectTask));
-        return response.buildResponse(something, HttpStatus.CREATED);
+        projectTaskService.save(mapper.map(projectTask));
+        return build.success(projectTask);
 
     }
 

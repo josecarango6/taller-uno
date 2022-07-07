@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public interface ProjectService {
 
-    Project save(Project project);
+    void save(Project project);
     void delete(Project project);
     List<Project> findAll();
     Project findById(Long id);

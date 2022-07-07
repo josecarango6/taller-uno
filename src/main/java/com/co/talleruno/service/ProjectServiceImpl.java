@@ -17,9 +17,8 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Project save(Project project) {
+    public void save(Project project) {
         projectRepository.save(project);
-        return project;
     }
 
     @Override

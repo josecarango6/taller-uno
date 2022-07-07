@@ -43,13 +43,13 @@ public class ProjectTask {
     private ProjectStatus projectStatus;
 
     @Column(name = "priority")
-    @Min(value = 1, message = "La prioridad debe de ser mayor o igual a 1")
-    @Max(value = 5, message = "La prioridad debe de ser menor o igual a 5")
+    @Min(value = 1, message = "La prioridad debe de ser de 1 a 5")
+    @Max(value = 5, message = "La prioridad debe de ser de 1 a 5")
     private Integer priority;
 
     @Column(name = "hours")
-    @Min(value = 1, message = "Las horas deben de ser mayor o igual a 1")
-    @Max(value = 5, message = "Las horas debem de ser menor o igual a 8")
+    @Min(value = 1, message = "Las horas deben de ser mayor o igual a 1 y no superiores a 8")
+    @Max(value = 8, message = "Las horas deben de ser mayor o igual a 1 y no superiores a 8")
     private Double hours;
 
     @Column(name = "start_date")

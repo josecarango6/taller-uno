@@ -8,7 +8,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -29,5 +28,5 @@ public interface ProjectDocs {
             )
         }
     )
-    ResponseEntity<Object> save(@RequestBody ProjectInDTO project, BindingResult bindingResult);
+    Response save(@RequestBody ProjectInDTO project, BindingResult bindingResult);
 }

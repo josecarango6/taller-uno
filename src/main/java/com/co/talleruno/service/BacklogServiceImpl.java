@@ -26,9 +26,9 @@ public class BacklogServiceImpl implements BacklogService {
     }
 
     @Override
-    public Backlog save(Backlog backlog) {
+    @Transactional(rollbackFor = Exception.class)
+    public void save(Backlog backlog) {
         backlogRepository.save(backlog);
-        return backlog;
     }
 
 

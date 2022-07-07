@@ -14,6 +14,6 @@ public interface ProjectTaskService {
     ProjectTask logicDeleteByIdAndProjectIdentifier(Long id, String projectIdentifier);
     boolean existsById(Long id);
     ProjectTask findById(Long id);
-    ProjectTask save(ProjectTask projectTask);
+    void save(ProjectTask projectTask);
     void delete(ProjectTask projectTask);
 }

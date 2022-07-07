@@ -1,11 +1,9 @@
 package com.co.talleruno.controller;
 
 import com.co.talleruno.controller.docs.BacklogDocs;
-import com.co.talleruno.helpers.ControllerResponse;
 import com.co.talleruno.helpers.Response;
 import com.co.talleruno.helpers.ResponseBuild;
 import com.co.talleruno.mapper.BacklogInDtoToBacklog;
-import com.co.talleruno.persistence.entity.Backlog;
 import com.co.talleruno.persistence.entity.Project;
 import com.co.talleruno.service.BacklogService;
 import com.co.talleruno.service.ProjectService;
@@ -17,8 +15,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,27 +33,25 @@ public class BacklogController implements BacklogDocs {
     private final BacklogInDtoToBacklog mapper;
     private final ResponseBuild build;
 
-    private final ControllerResponse response;
+    //private final ControllerResponse response;
 
 
     @Override
     @PostMapping()
-    public ResponseEntity save(@Valid @RequestBody BacklogInDTO backlog, BindingResult result) {
+    public Response save(@Valid @RequestBody BacklogInDTO backlog, BindingResult result) {
         if (result.hasErrors()) {
-            return response.buildResponse(result, HttpStatus.BAD_REQUEST);
+            return build.failed(formatMessage(result));
         }
 
         Optional<Project> project = projectService.findByProjectIdentifier(
             backlog.getProjectIdentifier());
 
         if (!project.isPresent()) {
-            String message = "Project identifier does not exist";
-            return response.buildResponse(message, HttpStatus.BAD_REQUEST);
+            return build.projectIdentifierNotExist(formatMessage(result));
         }
+        backlogService.save(mapper.map(backlog));
+        return build.success(backlog);
 
-        Backlog something = backlogService.save(
-            mapper.map(backlog));
-        return response.buildResponse(something, HttpStatus.CREATED);
     }
 
     /*

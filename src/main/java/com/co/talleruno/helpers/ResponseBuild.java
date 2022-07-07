@@ -43,6 +43,16 @@ public class ResponseBuild {
                 .code(BAD_REQUEST.value()).build();
     }
 
+    public Response projectIdentifierNotExist(Object data) {
+        return Response.builder()
+                .data("Project Identifier "+NOT_FOUND.getReasonPhrase())
+                .code(NOT_FOUND.value()).build();
+    }
 
+    public Response notEmpty(Object data) {
+        return Response.builder()
+                .data("El identificador del proyecto no puede estar vacio")
+                .code(NOT_FOUND.value()).build();
+    }
 
 }
