@@ -26,9 +26,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation:2.6.3'
     implementation 'org.postgresql:postgresql:42.4.0'
 
-
-
-
     runtimeOnly 'com.h2database:h2'
 
     compileOnly 'org.projectlombok:lombok'

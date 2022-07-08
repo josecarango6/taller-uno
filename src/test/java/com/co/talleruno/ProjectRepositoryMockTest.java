@@ -4,6 +4,7 @@ package com.co.talleruno;
 import com.co.talleruno.persistence.entity.Project;
 import com.co.talleruno.persistence.repository.ProjectRepository;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+@Disabled
 @DataJpaTest
 public class ProjectRepositoryMockTest {
 

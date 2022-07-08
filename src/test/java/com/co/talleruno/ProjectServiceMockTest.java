@@ -6,6 +6,7 @@ import com.co.talleruno.service.ProjectService;
 import com.co.talleruno.service.ProjectServiceImpl;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -43,6 +44,7 @@ public class ProjectServiceMockTest {
 
     }
 
+    @Disabled
     @Test
     public void when_findById_return_project(){
         Project product = projectService.findById(1L);
